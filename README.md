@@ -43,14 +43,20 @@ python -m http.server 8080
 # 浏览器打开 http://localhost:8080
 ```
 
-## 部署（任选其一）
+## 部署
+
+**本站点已上线**：<https://wenjin-yang.github.io/>（GitHub Pages，仓库
+[`wenjin-yang/wenjin-yang.github.io`](https://github.com/wenjin-yang/wenjin-yang.github.io)，
+分支 `main`、目录 `/`）。根目录的 `.nojekyll` 用于跳过 Jekyll、保证文件按原样发布。
 
 站点是**纯静态**的，把整个 `website/` 目录传上去即可：
 
-- **GitHub Pages**：新建仓库 `<username>.github.io`，把 `website/` 内容推到根目录或 `/docs`，
-  Settings → Pages 选择对应分支/目录。访问 `https://<username>.github.io`。
-- **任意静态托管**：Vercel / Netlify / Cloudflare Pages 直接导入仓库，构建命令留空、输出目录设为 `website`。
-- **自己的服务器**：把目录拷进 nginx / Apache 的 web root。
+- **更新线上内容**：在 `website/` 目录 `git add -A && git commit -m "..." && git push`，
+  约半分钟后自动生效（无需构建）。本机 git 走 Windows 凭据管理器：
+  `git -c credential.helper=wincred push`。
+- **换到别的账号 / 平台**：新建 `<username>.github.io` 仓库，把 `website/` 内容推到根目录，
+  Settings → Pages 选择 `main` + `/`；或 Vercel / Netlify / Cloudflare Pages 导入仓库，
+  构建命令留空、输出目录设为 `website`；或把目录拷进 nginx / Apache 的 web root。
 
 无需构建、无需生成器，改完刷新即生效。
 
