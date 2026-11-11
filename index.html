@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="杨文进 Wenjin Yang — 个人主页 · 计算机科学与技术硕士 · 算法研究">
+<title>杨文进 Wenjin Yang · 个人主页</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' fill='%23d81e28'/><text x='32' y='47' font-size='40' font-family='Helvetica,Arial' font-weight='700' fill='white' text-anchor='middle'>W</text></svg>">
+<link rel="stylesheet" href="fonts.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<button class="menu-btn" id="menuBtn" aria-label="打开侧栏">☰</button>
+<div class="drawer-mask" id="drawerMask"></div>
+
+<div class="page">
+
+  <!-- ══════════════ MASTHEAD ══════════════ -->
+  <div class="masthead">
+    <span class="masthead__mark">WY<span class="masthead__dot">.</span></span>
+    <span class="masthead__title" data-i18n="masthead.title">Curriculum Vitae · 个人主页</span>
+    <span class="masthead__meta">WENJIN YANG / 杨文进 — SHANGHAI, CN</span>
+  </div>
+
+  <!-- ══════════════ LEFT · IDENTITY ══════════════ -->
+  <aside class="identity" id="sidebar">
+
+    <div class="card idcard">
+      <div class="avatar"><img src="assets/portrait.jpg" alt="杨文进 Wenjin Yang"></div>
+      <h1 class="idcard__name">杨文进</h1>
+      <p class="idcard__latin">WENJIN YANG</p>
+      <p class="idcard__tagline" data-i18n="tagline">CS 硕士 · 算法研究 · AI for Science</p>
+      <div class="idcard__meta">
+        <p><span class="dot dot--ok"></span><span data-i18n="status.available">算法研究 · AI for Science</span></p>
+        <p data-i18n="meta.role">宁德时代 21C 创新实验室 · 算法研发</p>
+        <p data-i18n="meta.location">中国 · 上海</p>
+      </div>
+    </div>
+
+    <div class="card idcard idcard--pad">
+      <p class="label">TAGS / 标签</p>
+      <div class="chips" id="tagChips"></div>
+    </div>
+
+    <div class="card idcard idcard--pad">
+      <p class="label">TIMELINE / 时间线</p>
+      <ul class="milestones" id="milestones"></ul>
+    </div>
+
+    <div class="card idcard idcard--pad">
+      <p class="label">LINKS / 链接</p>
+      <nav class="idlinks">
+        <a href="mailto:csyangwenjin@outlook.com"><span class="idlinks__k">✉</span> Mail</a>
+        <a href="tel:+8615390777338"><span class="idlinks__k">☎</span> Phone</a>
+        <a href="assets/resume_phd_ai_en.pdf" target="_blank" rel="noopener"><span class="idlinks__k">↗</span> CV · EN</a>
+        <a href="assets/resume_phd_ai_zh.pdf" target="_blank" rel="noopener"><span class="idlinks__k">↗</span> CV · 中文</a>
+      </nav>
+    </div>
+
+    <p class="idfoot"><span data-i18n="greeting.quote">在少量样本里，寻找可解释的规律。</span><br><span class="idfoot__by" data-i18n="sidebar.foot">built with vim &amp; caffeine</span></p>
+  </aside>
+
+  <!-- ══════════════ RIGHT · RESUME ══════════════ -->
+  <main class="content" id="main">
+
+    <header class="hero card" id="about">
+      <div class="hero__top">
+        <p class="hero__hello" data-i18n="greeting.hello">你好，我是</p>
+        <div class="hero__tools">
+          <button class="tog" id="langToggle" type="button">EN</button>
+          <button class="tog" id="themeToggle" type="button" aria-label="切换亮暗主题">◐</button>
+        </div>
+      </div>
+
+      <h2 class="wordmark" aria-label="杨文进 Wenjin Yang">
+        <span class="wordmark__top" aria-hidden="true">
+          <span>01 / NAME</span>
+          <span>WY 2026 / TYPE SPECIMEN</span>
+        </span>
+        <span class="wordmark__cn">杨文进<span class="wordmark__seal" aria-hidden="true">WY</span></span>
+        <span class="wordmark__bottom" aria-hidden="true">
+          <span class="wordmark__latin">WENJIN YANG</span>
+          <span class="wordmark__pinyin">杨 · 文 · 进</span>
+        </span>
+      </h2>
+
+      <p class="hero__lead" data-i18n="hero.lead">上海科技大学计算机科学与技术硕士，现于宁德时代 21C 创新实验室从事算法研究。</p>
+      <p class="hero__body" data-i18n="hero.body">研究围绕 AI for Science 中「数据稀缺」与「物理约束」两大核心问题：把稀疏、早期的一维电池时序信号结构化为可供深度模型学习的表征，让极少量样本下的系统状态预测兼具跨工况泛化能力与物理可解释性。</p>
+      <div class="hero__actions">
+        <a class="btn btn--primary" href="#publications" data-i18n="hero.pubBtn">查看论文</a>
+        <a class="btn" href="mailto:csyangwenjin@outlook.com" data-i18n="hero.contactBtn">联系我</a>
+      </div>
+    </header>
+
+    <nav class="quicknav" id="quicknav" aria-label="页面导航">
+      <a href="#about">关于 / About</a>
+      <a href="#research">研究 / Research</a>
+      <a href="#publications">论文 / Publications</a>
+      <a href="#experience">经历 / Experience</a>
+      <a href="#awards">荣誉 / Awards</a>
+      <a href="#skills">技能 / Skills</a>
+      <a href="#news">动态 / News</a>
+      <a href="#terminal">终端 / Shell</a>
+    </nav>
+
+    <div class="stats" id="statGrid">
+      <div class="card stat"><b class="stat__num">8</b><span class="stat__label" data-i18n="awards.stat1">论文</span></div>
+      <div class="card stat"><b class="stat__num">64</b><span class="stat__label" data-i18n="awards.stat2">引用</span></div>
+      <div class="card stat"><b class="stat__num">7</b><span class="stat__label" data-i18n="awards.stat3">专利</span></div>
+      <div class="card stat"><b class="stat__num">5</b><span class="stat__label" data-i18n="awards.stat4">h-index</span></div>
+    </div>
+
+    <section class="block" id="research">
+      <div class="block__head"><span class="block__idx">01 /</span><h2 class="block__title" data-i18n="sec.research">研究方向 / Research</h2><span class="block__line"></span><span class="block__hint">R01 — R04</span></div>
+      <p class="block__intro" data-i18n="research.intro">我的研究处于机器学习与电化学储能的交叉点，关注如何让深度模型在「小样本、强物理约束」的科学与工程数据上依然可靠。</p>
+      <div class="grid grid--2" id="researchGrid"></div>
+    </section>
+
+    <section class="block" id="publications">
+      <div class="block__head"><span class="block__idx">02 /</span><h2 class="block__title" data-i18n="sec.publications">论文著作 / Publications</h2><span class="block__line"></span><span class="block__hint">8 PAPERS · 64 CITATIONS</span></div>
+      <div class="filters" id="pubFilters"></div>
+      <p class="pub-note" data-i18n="pub.note"><b>*</b> 标记第一作者论文；加粗下划线的作者为本人。点 tag 可筛选，点 [PDF] 可看全文。</p>
+      <ul class="pubs" id="pubList"></ul>
+      <div class="patents">
+        <h3 class="patents__title" data-i18n="patents.title">授权发明专利（节选） &amp; 软件著作权</h3>
+        <ul class="patents__list" id="patents"></ul>
+      </div>
+    </section>
+
+    <section class="block" id="experience">
+      <div class="block__head"><span class="block__idx">03 /</span><h2 class="block__title" data-i18n="sec.experience">经历 / Experience</h2><span class="block__line"></span><span class="block__hint">2018 — NOW</span></div>
+      <div class="timeline" id="timeline"></div>
+    </section>
+
+    <section class="block" id="awards">
+      <div class="block__head"><span class="block__idx">04 /</span><h2 class="block__title" data-i18n="sec.awards">荣誉奖项 / Awards</h2><span class="block__line"></span><span class="block__hint">SELECTED</span></div>
+      <div class="grid grid--3" id="awardsGrid"></div>
+    </section>
+
+    <section class="block" id="skills">
+      <div class="block__head"><span class="block__idx">05 /</span><h2 class="block__title" data-i18n="sec.skills">技能栈 / Skills</h2><span class="block__line"></span><span class="block__hint">STACK</span></div>
+      <div class="skills" id="skillsList"></div>
+      <h3 class="subhead" data-i18n="skills.lang">语言能力 / Languages</h3>
+      <div class="langbar" id="langbar"></div>
+    </section>
+
+    <section class="block" id="news">
+      <div class="block__head"><span class="block__idx">06 /</span><h2 class="block__title" data-i18n="sec.news">动态 / News</h2><span class="block__line"></span><span class="block__hint">RECENT</span></div>
+      <div class="news" id="newsList"></div>
+    </section>
+
+    <section class="block" id="terminal">
+      <div class="block__head"><span class="block__idx">07 /</span><h2 class="block__title" data-i18n="sec.terminal">交互终端 / Shell</h2><span class="block__line"></span><span class="block__hint">TRY `help`</span></div>
+      <div class="terminal" id="terminalBox">
+        <div class="terminal__bar"><span class="dots"><i></i><i></i><i></i></span><span class="terminal__t">wenjin@homepage — bash</span><span class="terminal__hint" data-i18n="term.hint">输入 help 查看命令 · Tab 可点击补全</span></div>
+        <div class="terminal__out" id="termOut"></div>
+        <form class="terminal__form" id="termForm" autocomplete="off">
+          <span class="terminal__prompt">wenjin@homepage:~$</span>
+          <input class="terminal__in" id="termIn" type="text" spellcheck="false" aria-label="终端输入">
+        </form>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <span>$ <span data-i18n="footer.echo">echo</span> "thanks for visiting."</span>
+      <span class="footer__r">/* <span data-i18n="footer.note">无追踪、无 Cookie，纯 HTML/CSS/JS</span> */ · <span id="uptime"></span> · © <span id="year">2026</span> 杨文进</span>
+    </footer>
+
+  </main>
+</div>
+
+<button class="to-top" id="toTop" aria-label="回到顶部">↑</button>
+
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
