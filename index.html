@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-CN" data-theme="light">
+<html lang="zh-CN" data-theme="light" data-scheme="red">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -67,9 +67,20 @@
     <header class="hero card" id="about">
       <div class="hero__top">
         <p class="hero__hello" data-i18n="greeting.hello">你好，我是</p>
-        <div class="hero__tools">
-          <button class="tog" id="langToggle" type="button">EN</button>
-          <button class="tog" id="themeToggle" type="button" aria-label="切换亮暗主题">◐</button>
+        <div class="hero__controls">
+          <div class="hero__tools">
+            <button class="tog" id="langToggle" type="button">EN</button>
+            <button class="tog" id="themeToggle" type="button" aria-label="切换亮暗主题">◐</button>
+          </div>
+          <div class="schemes" id="schemeSwitch" role="group" aria-label="配色主题">
+            <span class="schemes__label" data-i18n="scheme.label">配色</span>
+            <button class="scheme-dot" type="button" data-scheme="red" aria-label="经典红"><span></span></button>
+            <button class="scheme-dot" type="button" data-scheme="blue" aria-label="国际蓝"><span></span></button>
+            <button class="scheme-dot" type="button" data-scheme="green" aria-label="松绿"><span></span></button>
+            <button class="scheme-dot" type="button" data-scheme="violet" aria-label="紫罗兰"><span></span></button>
+            <button class="scheme-dot" type="button" data-scheme="amber" aria-label="琥珀"><span></span></button>
+            <button class="scheme-dot" type="button" data-scheme="graphite" aria-label="石墨"><span></span></button>
+          </div>
         </div>
       </div>
 

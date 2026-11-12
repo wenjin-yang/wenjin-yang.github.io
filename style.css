@@ -2,8 +2,8 @@
    style.css — Wenjin Yang · personal homepage
    Swiss / International Typographic Style.
    Mathematical grid · Helvetica-style sans · flush-left, ragged-right
-   type · hairline rules · one red accent · extreme size/weight contrast
-   · no shadows, no radii, no gradients, no ornament.
+   type · hairline rules · six swappable accent colors · extreme
+   size/weight contrast · no shadows, no radii, no gradients, no ornament.
    Light is the canonical paper; dark is a strict inversion.
    No build step, no network — fonts subset & inlined in fonts.css (OFL).
    ══════════════════════════════════════════════════════════════ */
@@ -33,7 +33,7 @@
   --radius: 0;
   --radius-sm: 0;
 
-  /* light: paper white, near-black ink, one red */
+  /* light: paper white, near-black ink, red accent (default scheme) */
   --bg: #ffffff;
   --bg-2: #ffffff;
   --panel: #ffffff;
@@ -44,9 +44,12 @@
   --border: #c8c8c4;
   --border-strong: #111111;
   --rule: #c8c8c4;
-  --accent: #d81e28;
-  --accent-ink: #b3121a;
-  --accent-soft: rgba(216, 30, 40, .08);
+  /* red is the default; [data-scheme] overrides the six --ac-* vars below */
+  --ac-l: #d81e28; --ac-ink-l: #b3121a; --ac-soft-l: rgba(216, 30, 40, .08);
+  --ac-d: #ff4a45; --ac-ink-d: #ff6b66; --ac-soft-d: rgba(255, 74, 69, .12);
+  --accent: var(--ac-l);
+  --accent-ink: var(--ac-ink-l);
+  --accent-soft: var(--ac-soft-l);
   --violet: #111111;
   --violet-soft: rgba(17, 17, 17, .06);
   --ok: #111111;
@@ -67,9 +70,9 @@ html[data-theme="dark"] {
   --border: #454541;
   --border-strong: #f2f2f0;
   --rule: #454541;
-  --accent: #ff4a45;
-  --accent-ink: #ff6b66;
-  --accent-soft: rgba(255, 74, 69, .12);
+  --accent: var(--ac-d);
+  --accent-ink: var(--ac-ink-d);
+  --accent-soft: var(--ac-soft-d);
   --violet: #f2f2f0;
   --violet-soft: rgba(242, 242, 240, .08);
   --ok: #f2f2f0;
@@ -78,6 +81,80 @@ html[data-theme="dark"] {
   --shadow-hover: none;
   --scrim: rgba(0, 0, 0, .7);
 }
+
+/* ── accent schemes ─────────────────────────────────────────────
+   Six accent colors, each with a light + dark variant. Only the accent
+   trio is swapped; the paper/ink grid stays untouched. Indirect vars
+   keep data-theme (light/dark) and data-scheme orthogonal, since both
+   selectors share the same specificity. WCAG AA (>=4.5:1) verified.  */
+html[data-scheme="red"] {
+  --ac-l: #d81e28; --ac-ink-l: #b3121a; --ac-soft-l: rgba(216, 30, 40, .08);
+  --ac-d: #ff4a45; --ac-ink-d: #ff6b66; --ac-soft-d: rgba(255, 74, 69, .12);
+}
+html[data-scheme="blue"] {
+  --ac-l: #1a43c4; --ac-ink-l: #173ba8; --ac-soft-l: rgba(26, 67, 196, .08);
+  --ac-d: #7fa8ff; --ac-ink-d: #a8c4ff; --ac-soft-d: rgba(127, 168, 255, .12);
+}
+html[data-scheme="green"] {
+  --ac-l: #0d7350; --ac-ink-l: #0a5c40; --ac-soft-l: rgba(13, 115, 80, .08);
+  --ac-d: #4fd6a0; --ac-ink-d: #8fe9c4; --ac-soft-d: rgba(79, 214, 160, .12);
+}
+html[data-scheme="violet"] {
+  --ac-l: #6334c4; --ac-ink-l: #502a9e; --ac-soft-l: rgba(99, 52, 196, .08);
+  --ac-d: #c39cff; --ac-ink-d: #d6bbff; --ac-soft-d: rgba(195, 156, 255, .12);
+}
+html[data-scheme="amber"] {
+  --ac-l: #945400; --ac-ink-l: #7a4500; --ac-soft-l: rgba(148, 84, 0, .08);
+  --ac-d: #ffc46b; --ac-ink-d: #ffd89b; --ac-soft-d: rgba(255, 196, 107, .12);
+}
+html[data-scheme="graphite"] {
+  --ac-l: #2f353d; --ac-ink-l: #242a31; --ac-soft-l: rgba(47, 53, 61, .08);
+  --ac-d: #c2c9d6; --ac-ink-d: #dde2ea; --ac-soft-d: rgba(194, 201, 214, .12);
+}
+
+/* swatch strip: a row of square, bordered color buttons (44x44 hit area) */
+.hero__controls { display: flex; flex-direction: column; align-items: flex-end; gap: 10px; flex: none; }
+.schemes { display: flex; align-items: center; gap: 0; border: 1px solid var(--fg); }
+.schemes__label {
+  font-family: var(--mono);
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--fg-dim);
+  padding: 0 12px;
+  align-self: stretch;
+  display: inline-flex;
+  align-items: center;
+  border-right: 1px solid var(--fg);
+}
+.scheme-dot {
+  width: 44px;
+  height: 44px;
+  padding: 11px;
+  background: transparent;
+  border: 0;
+  border-right: 1px solid var(--fg);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.scheme-dot:last-child { border-right: 0; }
+.scheme-dot > span {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: var(--dot, var(--accent));
+}
+.scheme-dot[data-scheme="red"] > span { background: #d81e28; }
+.scheme-dot[data-scheme="blue"] > span { background: #1a43c4; }
+.scheme-dot[data-scheme="green"] > span { background: #0d7350; }
+.scheme-dot[data-scheme="violet"] > span { background: #6334c4; }
+.scheme-dot[data-scheme="amber"] > span { background: #945400; }
+.scheme-dot[data-scheme="graphite"] > span { background: #2f353d; }
+.scheme-dot:hover { background: var(--fg); }
+.scheme-dot:hover > span { outline: 2px solid var(--bg); outline-offset: -2px; }
+.scheme-dot[aria-pressed="true"] { outline: 2px solid var(--accent); outline-offset: -2px; }
 
 /* ── base ──────────────────────────────────────────────────────── */
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -357,7 +434,7 @@ button { font-family: inherit; cursor: pointer; }
   margin-left: .26em;
   padding: .16em .12em;
   font-family: var(--sans);
-  font-size: .2em;
+  font-size: max(12px, .2em);
   font-weight: 800;
   line-height: 1;
   letter-spacing: .04em;
@@ -773,7 +850,7 @@ button { font-family: inherit; cursor: pointer; }
   .masthead__meta { display: none; }
   .masthead__title { font-size: var(--fs-xs); letter-spacing: .1em; }
   .hero__top { flex-direction: column; }
-  .hero__tools { align-self: flex-start; }
+  .hero__controls { align-self: flex-start; align-items: flex-start; }
   .wordmark__cn { font-size: clamp(40px, 16vw, 64px); }
   .wordmark__latin { font-size: var(--fs-base); letter-spacing: .2em; }
   .wordmark__pinyin { display: none; }
@@ -798,6 +875,10 @@ button { font-family: inherit; cursor: pointer; }
   .langbar__row { flex-basis: 100%; }
 }
 
+@media (max-width: 360px) {
+  .schemes__label { display: none; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   * { animation-duration: .001ms !important; transition-duration: .001ms !important; scroll-behavior: auto !important; }
 }
@@ -810,7 +891,7 @@ button { font-family: inherit; cursor: pointer; }
     --accent: #000; --accent-ink: #000; --accent-soft: transparent;
     --violet: #000; --ok: #000; --shadow: none; --shadow-hover: none;
   }
-  .menu-btn, .drawer-mask, .to-top, .quicknav, .hero__tools, .filters, #terminal { display: none !important; }
+  .menu-btn, .drawer-mask, .to-top, .quicknav, .hero__tools, .schemes, .filters, #terminal { display: none !important; }
   body { background: #fff; }
   .page { display: block; max-width: none; padding: 0; }
   .identity { position: static; height: auto; display: flex; flex-direction: row; flex-wrap: wrap; overflow: visible; margin-bottom: 16px; border-right: 0; padding: 0; }

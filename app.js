@@ -1,7 +1,8 @@
 /* ══════════════════════════════════════════════════════════════
    app.js — single-page personal homepage logic.
    Reads window.SITE (data.js), renders every section, drives the
-   bilingual switch, light/dark theme, mobile drawer, and the shell.
+   bilingual switch, light/dark theme, six accent schemes, mobile
+   drawer, and the shell.
    Zero dependencies, works from file:// (no fetch, no modules).
    ══════════════════════════════════════════════════════════════ */
 (function () {
@@ -36,6 +37,39 @@
     return key;
   }
 
+  /* ── accent scheme ──────────────────────────────────────────── */
+  var SCHEMES = ["red", "blue", "green", "violet", "amber", "graphite"];
+  var SCHEME_COLORS = {
+    red: "d81e28", blue: "1a43c4", green: "0d7350",
+    violet: "6334c4", amber: "945400", graphite: "2f353d"
+  };
+  var scheme = "red";
+  try { scheme = localStorage.getItem("wy:scheme") || "red"; } catch (e) {}
+  if (SCHEMES.indexOf(scheme) < 0) { scheme = "red"; }
+
+  function setFavicon(v) {
+    var l = document.querySelector('link[rel="icon"]');
+    if (!l) { return; }
+    var c = SCHEME_COLORS[v] || SCHEME_COLORS.red;
+    l.setAttribute("href", "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' fill='%23" + c + "'/><text x='32' y='47' font-size='40' font-family='Helvetica,Arial' font-weight='700' fill='white' text-anchor='middle'>W</text></svg>");
+  }
+  function setScheme(v) {
+    var val = SCHEMES.indexOf(v) >= 0 ? v : "red";
+    scheme = val;
+    document.documentElement.setAttribute("data-scheme", val);
+    $$("#schemeSwitch .scheme-dot").forEach(function (b) {
+      var on = b.getAttribute("data-scheme") === val;
+      b.setAttribute("aria-pressed", on ? "true" : "false");
+      var name = t("scheme." + b.getAttribute("data-scheme"));
+      b.setAttribute("aria-label", name);
+      b.setAttribute("title", name);
+    });
+    var sw = $("#schemeSwitch");
+    if (sw) { sw.setAttribute("aria-label", t("scheme.label")); }
+    setFavicon(val);
+    try { localStorage.setItem("wy:scheme", val); } catch (e) {}
+  }
+
   /* ── static UI translations ─────────────────────────────────── */
   function applyI18n() {
     $$("[data-i18n]").forEach(function (el) {
@@ -48,6 +82,13 @@
     if (tt) { tt.setAttribute("aria-label", lang === "zh" ? "切换亮暗主题" : "Toggle theme"); }
     document.documentElement.lang = lang === "zh" ? "zh-CN" : "en";
     document.title = t("site.title");
+    $$("#schemeSwitch .scheme-dot").forEach(function (b) {
+      var name = t("scheme." + b.getAttribute("data-scheme"));
+      b.setAttribute("aria-label", name);
+      b.setAttribute("title", name);
+    });
+    var sw = $("#schemeSwitch");
+    if (sw) { sw.setAttribute("aria-label", t("scheme.label")); }
   }
 
   /* ── identity column: tag chips & milestones ────────────────── */
@@ -283,7 +324,7 @@
     help: function () {
       line("<b>available commands</b>", "ok");
       line("about · pubs · research · skills · contact · neofetch", "dim");
-      line("date · lang [zh|en] · theme · whoami · ls · echo · clear · sudo", "dim");
+      line("date · lang [zh|en] · theme · color [name] · whoami · ls · echo · clear · sudo", "dim");
       line(esc(t("term.tip")), "dim");
       line(shortcutsHtml());
     },
@@ -321,6 +362,7 @@
       line("Role    : " + esc(t("tagline")), "dim");
       line("Papers  : " + D.publications.length + " · Patents: " + D.patents.length, "dim");
       line("Uptime  : " + esc(uptimeStr()), "dim");
+      line("Accent  : " + scheme + " · Theme: " + document.documentElement.getAttribute("data-theme"), "dim");
     },
     date: function () {
       line(esc(new Date().toLocaleString(lang === "zh" ? "zh-CN" : "en-US")));
@@ -331,6 +373,18 @@
       else { setLang(lang === "zh" ? "en" : "zh"); line("lang → " + lang, "ok"); }
     },
     theme: function () { toggleTheme(); line("theme → " + document.documentElement.getAttribute("data-theme"), "ok"); },
+    color: function (args) {
+      var a = (args[0] || "").toLowerCase();
+      if (a) {
+        if (SCHEMES.indexOf(a) < 0) {
+          line("unknown accent: " + esc(a) + " — try " + SCHEMES.join(" / "), "err");
+        } else { setScheme(a); line("color → " + a, "ok"); }
+      } else {
+        var next = SCHEMES[(SCHEMES.indexOf(scheme) + 1) % SCHEMES.length];
+        setScheme(next); line("color → " + next, "ok");
+      }
+    },
+    scheme: function (args) { COMMANDS.color(args); },
     clear: function () { if (termOut) { termOut.innerHTML = ""; } },
     sudo: function () { line(esc(t("term.sudo")), "err"); },
     whoami: function () { line("wenjin — " + esc(t("tagline"))); },
@@ -421,6 +475,14 @@
     var tb = $("#themeToggle");
     if (tb) { tb.addEventListener("click", toggleTheme); }
 
+    var sw = $("#schemeSwitch");
+    if (sw) {
+      sw.addEventListener("click", function (e) {
+        var b = e.target.closest ? e.target.closest(".scheme-dot") : null;
+        if (b && sw.contains(b)) { setScheme(b.getAttribute("data-scheme")); }
+      });
+    }
+
     var mb = $("#menuBtn"), mask = $("#drawerMask");
     if (mb) { mb.addEventListener("click", function () { document.body.classList.toggle("nav-open"); }); }
     if (mask) { mask.addEventListener("click", function () { document.body.classList.remove("nav-open"); }); }
@@ -454,6 +516,7 @@
   var savedTheme = "light";
   try { savedTheme = localStorage.getItem("wy:theme") || "light"; } catch (e) {}
   setTheme(savedTheme);
+  setScheme(scheme);
   applyI18n();
   renderAll();
   initTerminal();

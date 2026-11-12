@@ -40,6 +40,9 @@ window.SITE = (function () {
       "term.tip": "提示：试试 about / pubs / research / skills / contact / neofetch",
       "term.cleared": "终端已清空。",
       "term.sudo": "权限被拒绝 :) 这个玩笑从 1993 年就不好笑了。",
+      "scheme.label": "配色",
+      "scheme.red": "经典红", "scheme.blue": "国际蓝", "scheme.green": "松绿",
+      "scheme.violet": "紫罗兰", "scheme.amber": "琥珀", "scheme.graphite": "石墨",
     },
     en: {
       "site.title": "Wenjin Yang · Personal Homepage",
@@ -73,6 +76,9 @@ window.SITE = (function () {
       "term.tip": "tip: try about / pubs / research / skills / contact / neofetch",
       "term.cleared": "terminal cleared.",
       "term.sudo": "Permission denied :) That joke stopped being funny in 1993.",
+      "scheme.label": "ACCENT",
+      "scheme.red": "Classic red", "scheme.blue": "International blue", "scheme.green": "Pine green",
+      "scheme.violet": "Violet", "scheme.amber": "Amber", "scheme.graphite": "Graphite",
     },
   };
 
